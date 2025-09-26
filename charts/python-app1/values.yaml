@@ -1,0 +1,46 @@
+replicaCount: 1
+image:
+  repository: aumthakkar/python-app1-dev
+  pullPolicy: IfNotPresent
+  tag: "a3472a"
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: ""
+podAnnotations: {}
+podLabels: {}
+service:
+  type: ClusterIP
+  port: 5000
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: python-app1-dev.test.com
+      paths:
+        - path: /api/v1/info
+          pathType: Prefix
+    - host: python-app1-dev.test.com
+      paths:
+        - path: /api/v1/healthz
+          pathType: Prefix
+  tls: []
+resources:
+  requests:
+    cpu: 50m
+    memory: 50Mi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+volumes: []
+volumeMounts: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
